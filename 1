@@ -1,0 +1,25 @@
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+# Load data
+data = pd.read_csv('sports_data.csv')
+
+# Feature engineering
+data['away_win_streak'] = 0
+data['home_win_streak'] = 0
+away_win_streak = 0
+home_win_streak = 0
+
+# Calculate win streaks for each team
+for i, row in data.iterrows():
+    if row['away_team'] == data.loc[i-1, 'away_team']:
+        if row['away_score'] > row['home_score']:
+            away_win_streak += 1
+        else:
+            away_win_streak = 0
+        data.at[i, 'away_win_streak'] = away_win_streak
+    else:
+        away_win       
